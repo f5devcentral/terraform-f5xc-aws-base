@@ -12,16 +12,7 @@ resource "aws_vpc" "f5-xc-services" {
 }
 
 locals {
-  services_vpc = {
-    "az1" = {
-      cidr = "100.64.0.0/24"
-      az   = local.awsAz1
-    },
-    "az2" = {
-      cidr = "100.64.3.0/24"
-      az   = local.awsAz2
-    }
-  }
+
 }
 resource "aws_subnet" "f5-xc-services-external" {
   vpc_id                  = aws_vpc.f5-xc-services.id
@@ -130,9 +121,6 @@ resource "aws_security_group" "f5-xc-vpc" {
   }
 }
 
-data "aws_network_acls" "xc_acl" {
-  vpc_id = aws_vpc.f5-xc-services.id
-}
 resource "aws_network_acl_rule" "tcp_53" {
   network_acl_id = aws_vpc.f5-xc-services.default_network_acl_id
   rule_number    = 90
