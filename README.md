@@ -4,15 +4,18 @@
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
-No requirements.
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.0.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | 4.54.0 |
+| <a name="requirement_http"></a> [http](#requirement\_http) | 3.2.1 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
-| <a name="provider_http"></a> [http](#provider\_http) | n/a |
-| <a name="provider_random"></a> [random](#provider\_random) | n/a |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.54.0 |
+| <a name="provider_http"></a> [http](#provider\_http) | 3.2.1 |
 
 ## Modules
 
@@ -22,69 +25,55 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [aws_internet_gateway.f5-xc-services-vpc-gw](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/internet_gateway) | resource |
-| [aws_internet_gateway.f5-xc-spoke-vpc-gw](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/internet_gateway) | resource |
-| [aws_internet_gateway.f5-xc-spoke2-vpc-gw](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/internet_gateway) | resource |
-| [aws_network_acl_rule.deny_tcp_53](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/network_acl_rule) | resource |
-| [aws_network_acl_rule.deny_udp_53](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/network_acl_rule) | resource |
-| [aws_network_acl_rule.tcp_53](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/network_acl_rule) | resource |
-| [aws_network_acl_rule.tcp_53-2](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/network_acl_rule) | resource |
-| [aws_network_acl_rule.udp_53](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/network_acl_rule) | resource |
-| [aws_network_acl_rule.udp_53-2](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/network_acl_rule) | resource |
-| [aws_route.internet-rt](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route) | resource |
-| [aws_route.spoke-internet-rt](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route) | resource |
-| [aws_route.spoke2-internet-rt](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route) | resource |
-| [aws_route_table.f5-xc-services-vpc-external-rt](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table) | resource |
-| [aws_route_table.f5-xc-spoke-vpc-external-rt](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table) | resource |
-| [aws_route_table.f5-xc-spoke2-vpc-external-rt](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table) | resource |
-| [aws_route_table_association.f5-xc-external-association](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table_association) | resource |
-| [aws_route_table_association.f5-xc-spoke-external-association](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table_association) | resource |
-| [aws_route_table_association.f5-xc-spoke2-external-association](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table_association) | resource |
-| [aws_security_group.f5-xc-spoke-vpc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
-| [aws_security_group.f5-xc-spoke2-vpc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
-| [aws_security_group.f5-xc-vpc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
-| [aws_subnet.f5-xc-services-external](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet) | resource |
-| [aws_subnet.f5-xc-services-internal](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet) | resource |
-| [aws_subnet.f5-xc-services-workload](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet) | resource |
-| [aws_subnet.f5-xc-spoke-external](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet) | resource |
-| [aws_subnet.f5-xc-spoke-internal](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet) | resource |
-| [aws_subnet.f5-xc-spoke-workload](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet) | resource |
-| [aws_subnet.f5-xc-spoke2-external](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet) | resource |
-| [aws_subnet.f5-xc-spoke2-internal](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet) | resource |
-| [aws_subnet.f5-xc-spoke2-workload](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet) | resource |
-| [aws_vpc.f5-xc-services](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc) | resource |
-| [aws_vpc.f5-xc-spoke](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc) | resource |
-| [aws_vpc.f5-xc-spoke2](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc) | resource |
-| [random_id.buildSuffix](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) | resource |
-| [aws_availability_zones.available](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones) | data source |
-| [aws_network_acls.xc_acl](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/network_acls) | data source |
-| [http_http.myip](https://registry.terraform.io/providers/hashicorp/http/latest/docs/data-sources/http) | data source |
+| [aws_internet_gateway.f5-xc-services-vpc-gw](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/internet_gateway) | resource |
+| [aws_internet_gateway.f5-xc-spoke-vpc-gw](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/internet_gateway) | resource |
+| [aws_internet_gateway.f5-xc-spoke2-vpc-gw](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/internet_gateway) | resource |
+| [aws_network_acl_rule.deny_tcp_53](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/network_acl_rule) | resource |
+| [aws_network_acl_rule.deny_udp_53](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/network_acl_rule) | resource |
+| [aws_network_acl_rule.tcp_53](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/network_acl_rule) | resource |
+| [aws_network_acl_rule.tcp_53-2](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/network_acl_rule) | resource |
+| [aws_network_acl_rule.udp_53](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/network_acl_rule) | resource |
+| [aws_network_acl_rule.udp_53-2](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/network_acl_rule) | resource |
+| [aws_route.internet-rt](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/route) | resource |
+| [aws_route.spoke-internet-rt](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/route) | resource |
+| [aws_route.spoke2-internet-rt](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/route) | resource |
+| [aws_route_table.f5-xc-services-vpc-external-rt](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/route_table) | resource |
+| [aws_route_table.f5-xc-spoke-vpc-external-rt](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/route_table) | resource |
+| [aws_route_table.f5-xc-spoke2-vpc-external-rt](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/route_table) | resource |
+| [aws_route_table_association.f5-xc-external-association](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/route_table_association) | resource |
+| [aws_route_table_association.f5-xc-spoke-external-association](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/route_table_association) | resource |
+| [aws_route_table_association.f5-xc-spoke2-external-association](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/route_table_association) | resource |
+| [aws_security_group.f5-xc-spoke-vpc](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/security_group) | resource |
+| [aws_security_group.f5-xc-spoke2-vpc](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/security_group) | resource |
+| [aws_security_group.f5-xc-vpc](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/security_group) | resource |
+| [aws_subnet.f5-xc-services-external](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/subnet) | resource |
+| [aws_subnet.f5-xc-services-internal](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/subnet) | resource |
+| [aws_subnet.f5-xc-services-workload](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/subnet) | resource |
+| [aws_subnet.f5-xc-spoke-external](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/subnet) | resource |
+| [aws_subnet.f5-xc-spoke-internal](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/subnet) | resource |
+| [aws_subnet.f5-xc-spoke-workload](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/subnet) | resource |
+| [aws_subnet.f5-xc-spoke2-external](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/subnet) | resource |
+| [aws_subnet.f5-xc-spoke2-internal](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/subnet) | resource |
+| [aws_subnet.f5-xc-spoke2-workload](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/subnet) | resource |
+| [aws_vpc.f5-xc-services](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/vpc) | resource |
+| [aws_vpc.f5-xc-spoke](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/vpc) | resource |
+| [aws_vpc.f5-xc-spoke2](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/vpc) | resource |
+| [http_http.myip](https://registry.terraform.io/providers/hashicorp/http/3.2.1/docs/data-sources/http) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_auto_trust_localip"></a> [auto\_trust\_localip](#input\_auto\_trust\_localip) | if true, query ifconfig.io for public ip of terraform host. | `bool` | `false` | no |
-| <a name="input_awsAz1"></a> [awsAz1](#input\_awsAz1) | Availability zone, will dynamically choose one if left empty | `string` | `null` | no |
-| <a name="input_awsAz2"></a> [awsAz2](#input\_awsAz2) | Availability zone, will dynamically choose one if left empty | `string` | `null` | no |
-| <a name="input_awsAz3"></a> [awsAz3](#input\_awsAz3) | Availability zone, will dynamically choose one if left empty | `string` | `null` | no |
 | <a name="input_awsRegion"></a> [awsRegion](#input\_awsRegion) | aws region | `string` | n/a | yes |
-| <a name="input_buildSuffix"></a> [buildSuffix](#input\_buildSuffix) | random build suffix for resources | `string` | `null` | no |
-| <a name="input_domain_name"></a> [domain\_name](#input\_domain\_name) | The DNS domain name that will be used as common parent generated DNS name of loadbalancers. | `string` | `"shared.example.internal"` | no |
-| <a name="input_namespace"></a> [namespace](#input\_namespace) | Volterra application namespace | `string` | n/a | yes |
 | <a name="input_projectPrefix"></a> [projectPrefix](#input\_projectPrefix) | projectPrefix name for tagging | `string` | n/a | yes |
 | <a name="input_servicesVpc"></a> [servicesVpc](#input\_servicesVpc) | Services VPC | `map(any)` | n/a | yes |
 | <a name="input_servicesVpcCidrBlock"></a> [servicesVpcCidrBlock](#input\_servicesVpcCidrBlock) | n/a | `string` | n/a | yes |
 | <a name="input_spoke2Vpc"></a> [spoke2Vpc](#input\_spoke2Vpc) | Spoke VPC | `map(any)` | n/a | yes |
 | <a name="input_spoke2VpcCidrBlock"></a> [spoke2VpcCidrBlock](#input\_spoke2VpcCidrBlock) | n/a | `string` | n/a | yes |
 | <a name="input_spokeVpc"></a> [spokeVpc](#input\_spokeVpc) | Spoke VPC | `map(any)` | n/a | yes |
-| <a name="input_spokeVpcCidrBlock"></a> [spokeVpcCidrBlock](#input\_spokeVpcCidrBlock) | n/a | `any` | n/a | yes |
+| <a name="input_spokeVpcCidrBlock"></a> [spokeVpcCidrBlock](#input\_spokeVpcCidrBlock) | n/a | `string` | n/a | yes |
 | <a name="input_trusted_ip"></a> [trusted\_ip](#input\_trusted\_ip) | IP to allow external access | `string` | n/a | yes |
-| <a name="input_volterraCloudCredAWS"></a> [volterraCloudCredAWS](#input\_volterraCloudCredAWS) | Name of the volterra aws credentials | `string` | n/a | yes |
-| <a name="input_volterraCloudCredAzure"></a> [volterraCloudCredAzure](#input\_volterraCloudCredAzure) | Name of the volterra aws credentials | `string` | n/a | yes |
-| <a name="input_volterraP12"></a> [volterraP12](#input\_volterraP12) | Location of volterra p12 file | `string` | `null` | no |
-| <a name="input_volterraTenant"></a> [volterraTenant](#input\_volterraTenant) | Tenant of Volterra | `string` | n/a | yes |
-| <a name="input_volterraUrl"></a> [volterraUrl](#input\_volterraUrl) | url of volterra api | `string` | `null` | no |
 
 ## Outputs
 
