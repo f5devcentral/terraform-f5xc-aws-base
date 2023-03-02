@@ -169,5 +169,8 @@ resource "aws_security_group" "f5-xc-spoke-vpc" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-}
 
+  tags = {
+    Name = "${var.projectPrefix}-f5-xc-spoke-sg"
+  }
+}
