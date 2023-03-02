@@ -119,6 +119,10 @@ resource "aws_security_group" "f5-xc-vpc" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  tags = {
+    Name = "${var.projectPrefix}-f5-xc-sg"
+  }
 }
 
 resource "aws_network_acl_rule" "tcp_53" {
