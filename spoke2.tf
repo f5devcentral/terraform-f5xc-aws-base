@@ -31,7 +31,7 @@ resource "aws_subnet" "f5-xc-spoke2-internal" {
   availability_zone       = var.spoke2Vpc.azs[each.key]["az"]
 
   tags = {
-    Name = "${var.projectPrefix}-f5-xc-spoke2-external-${each.key}"
+    Name = "${var.projectPrefix}-f5-xc-spoke2-internal-${each.key}"
   }
 }
 
