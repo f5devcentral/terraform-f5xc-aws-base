@@ -86,7 +86,7 @@ resource "aws_eip" "f5-xc-spoke-nat" {
 
 resource "aws_nat_gateway" "f5-xc-spoke-vpc-nat" {
   allocation_id = aws_eip.f5-xc-spoke-nat.id
-  subnet_id     = aws_subnet.f5-xc-spoke-workload["az1"].id
+  subnet_id     = aws_subnet.f5-xc-spoke-external["az1"].id
 
   tags = {
     Name = "${var.projectPrefix}-f5-xc-spoke-nat"
