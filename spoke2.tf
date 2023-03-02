@@ -106,7 +106,7 @@ resource "aws_route_table" "f5-xc-spoke2-vpc-workload-rt" {
 resource "aws_route" "spoke2-workload-rt" {
   route_table_id         = aws_route_table.f5-xc-spoke2-vpc-workload-rt.id
   destination_cidr_block = "0.0.0.0/0"
-  gateway_id             = aws_nat_gateway.f5-xc-spoke2-vpc-nat.id
+  nat_gateway_id         = aws_nat_gateway.f5-xc-spoke2-vpc-nat.id
   depends_on             = [aws_route_table.f5-xc-spoke2-vpc-workload-rt]
 }
 
