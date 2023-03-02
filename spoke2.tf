@@ -47,7 +47,6 @@ resource "aws_subnet" "f5-xc-spoke2-workload" {
   }
 }
 
-
 resource "aws_internet_gateway" "f5-xc-spoke2-vpc-gw" {
   vpc_id = aws_vpc.f5-xc-spoke2.id
 
@@ -75,6 +74,46 @@ resource "aws_route_table_association" "f5-xc-spoke2-external-association" {
   for_each       = aws_subnet.f5-xc-spoke2-external
   subnet_id      = each.value.id
   route_table_id = aws_route_table.f5-xc-spoke2-vpc-external-rt.id
+}
+
+resource "aws_eip" "f5-xc-spoke2-nat" {
+  vpc = true
+
+  tags = {
+    Name = "${var.projectPrefix}-f5-xc-spoke2-nat-eip"
+  }
+}
+
+resource "aws_nat_gateway" "f5-xc-spoke2-vpc-nat" {
+  allocation_id = aws_eip.f5-xc-spoke2-nat.id
+  subnet_id     = aws_subnet.f5-xc-spoke2-workload["az1"].id
+
+  tags = {
+    Name = "${var.projectPrefix}-f5-xc-spoke2-nat"
+  }
+
+  depends_on = [aws_internet_gateway.f5-xc-spoke2-vpc-gw]
+}
+
+resource "aws_route_table" "f5-xc-spoke2-vpc-workload-rt" {
+  vpc_id = aws_vpc.f5-xc-spoke2.id
+
+  tags = {
+    Name = "${var.projectPrefix}-f5-xc-spoke2-workload-rt"
+  }
+}
+
+resource "aws_route" "spoke2-workload-rt" {
+  route_table_id         = aws_route_table.f5-xc-spoke2-vpc-workload-rt.id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = aws_nat_gateway.f5-xc-spoke2-vpc-nat.id
+  depends_on             = [aws_route_table.f5-xc-spoke2-vpc-workload-rt]
+}
+
+resource "aws_route_table_association" "f5-xc-spoke2-workload-association" {
+  for_each       = aws_subnet.f5-xc-spoke2-workload
+  subnet_id      = each.value.id
+  route_table_id = aws_route_table.f5-xc-spoke2-vpc-workload-rt.id
 }
 
 resource "aws_security_group" "f5-xc-spoke2-vpc" {
@@ -116,7 +155,6 @@ resource "aws_security_group" "f5-xc-spoke2-vpc" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  
   ingress {
     from_port   = 0
     to_port     = 0
@@ -130,5 +168,8 @@ resource "aws_security_group" "f5-xc-spoke2-vpc" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-}
 
+  tags = {
+    Name = "${var.projectPrefix}-f5-xc-spoke2-sg"
+  }
+}

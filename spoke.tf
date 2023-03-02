@@ -155,7 +155,6 @@ resource "aws_security_group" "f5-xc-spoke-vpc" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-
   ingress {
     from_port   = 0
     to_port     = 0
