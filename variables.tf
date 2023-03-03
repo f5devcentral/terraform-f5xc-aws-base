@@ -2,6 +2,10 @@ variable "projectPrefix" {
   type        = string
   description = "projectPrefix name for tagging"
 }
+variable "resourceOwner" {
+  type        = string
+  description = "Owner of the deployment for tagging purposes"
+}
 
 variable "trusted_ip" {
   type        = string

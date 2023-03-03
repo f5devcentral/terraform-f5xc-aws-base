@@ -7,7 +7,8 @@ resource "aws_vpc" "f5-xc-spoke2" {
   #enable_classiclink   = "false"
 
   tags = {
-    Name = "${var.projectPrefix}-f5-xc-spoke2-vpc"
+    Name  = "${var.projectPrefix}-f5-xc-spoke2-vpc"
+    Owner = var.resourceOwner
   }
 }
 
@@ -19,7 +20,8 @@ resource "aws_subnet" "f5-xc-spoke2-external" {
   availability_zone       = var.spoke2Vpc.azs[each.key]["az"]
 
   tags = {
-    Name = "${var.projectPrefix}-f5-xc-spoke2-external-${each.key}"
+    Name  = "${var.projectPrefix}-f5-xc-spoke2-external-${each.key}"
+    Owner = var.resourceOwner
   }
 }
 
@@ -31,7 +33,8 @@ resource "aws_subnet" "f5-xc-spoke2-internal" {
   availability_zone       = var.spoke2Vpc.azs[each.key]["az"]
 
   tags = {
-    Name = "${var.projectPrefix}-f5-xc-spoke2-internal-${each.key}"
+    Name  = "${var.projectPrefix}-f5-xc-spoke2-internal-${each.key}"
+    Owner = var.resourceOwner
   }
 }
 
@@ -43,7 +46,8 @@ resource "aws_subnet" "f5-xc-spoke2-workload" {
   availability_zone       = var.spoke2Vpc.azs[each.key]["az"]
 
   tags = {
-    Name = "${var.projectPrefix}-f5-xc-spoke2-workload-${each.key}"
+    Name  = "${var.projectPrefix}-f5-xc-spoke2-workload-${each.key}"
+    Owner = var.resourceOwner
   }
 }
 
@@ -51,7 +55,8 @@ resource "aws_internet_gateway" "f5-xc-spoke2-vpc-gw" {
   vpc_id = aws_vpc.f5-xc-spoke2.id
 
   tags = {
-    Name = "${var.projectPrefix}-f5-xc-spoke2-vpc-igw"
+    Name  = "${var.projectPrefix}-f5-xc-spoke2-vpc-igw"
+    Owner = var.resourceOwner
   }
 }
 
@@ -59,7 +64,8 @@ resource "aws_route_table" "f5-xc-spoke2-vpc-external-rt" {
   vpc_id = aws_vpc.f5-xc-spoke2.id
 
   tags = {
-    Name = "${var.projectPrefix}-f5-xc-spoke2-external-rt"
+    Name  = "${var.projectPrefix}-f5-xc-spoke2-external-rt"
+    Owner = var.resourceOwner
   }
 }
 
@@ -80,26 +86,28 @@ resource "aws_eip" "f5-xc-spoke2-nat" {
   vpc = true
 
   tags = {
-    Name = "${var.projectPrefix}-f5-xc-spoke2-nat-eip"
+    Name  = "${var.projectPrefix}-f5-xc-spoke2-nat-eip"
+    Owner = var.resourceOwner
   }
 }
 
 resource "aws_nat_gateway" "f5-xc-spoke2-vpc-nat" {
   allocation_id = aws_eip.f5-xc-spoke2-nat.id
   subnet_id     = aws_subnet.f5-xc-spoke2-external["az1"].id
+  depends_on    = [aws_internet_gateway.f5-xc-spoke2-vpc-gw]
 
   tags = {
-    Name = "${var.projectPrefix}-f5-xc-spoke2-nat"
+    Name  = "${var.projectPrefix}-f5-xc-spoke2-nat"
+    Owner = var.resourceOwner
   }
-
-  depends_on = [aws_internet_gateway.f5-xc-spoke2-vpc-gw]
 }
 
 resource "aws_route_table" "f5-xc-spoke2-vpc-workload-rt" {
   vpc_id = aws_vpc.f5-xc-spoke2.id
 
   tags = {
-    Name = "${var.projectPrefix}-f5-xc-spoke2-workload-rt"
+    Name  = "${var.projectPrefix}-f5-xc-spoke2-workload-rt"
+    Owner = var.resourceOwner
   }
 }
 
@@ -171,5 +179,6 @@ resource "aws_security_group" "f5-xc-spoke2-vpc" {
 
   tags = {
     Name = "${var.projectPrefix}-f5-xc-spoke2-sg"
+    Owner = var.resourceOwner
   }
 }
