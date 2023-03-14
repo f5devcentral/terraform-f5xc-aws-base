@@ -24,22 +24,18 @@ resource "aws_vpc_peering_connection" "hubSpoke2" {
 
 ############################ Routes ############################
 
-resource "aws_default_route_table" "f5-xc-services-default-rt" {
-  default_route_table_id = aws_vpc.f5-xc-services.default_route_table_id
+resource "aws_route" "hub-to-spoke1" {
+  route_table_id            = aws_route_table.f5-xc-services-vpc-external-rt.id
+  destination_cidr_block    = var.spokeVpcCidrBlock
+  vpc_peering_connection_id = aws_vpc_peering_connection.hubSpoke1.id
+  depends_on                = [aws_route_table.f5-xc-services-vpc-external-rt]
+}
 
-  route {
-    cidr_block                = var.spokeVpcCidrBlock
-    vpc_peering_connection_id = aws_vpc_peering_connection.hubSpoke1.id
-  }
-  route {
-    cidr_block                = var.spoke2VpcCidrBlock
-    vpc_peering_connection_id = aws_vpc_peering_connection.hubSpoke2.id
-  }
-
-  tags = {
-    Name  = "${var.projectPrefix}-f5-xc-services-default-rt"
-    Owner = var.resourceOwner
-  }
+resource "aws_route" "hub-to-spoke2" {
+  route_table_id            = aws_route_table.f5-xc-services-vpc-external-rt.id
+  destination_cidr_block    = var.spoke2VpcCidrBlock
+  vpc_peering_connection_id = aws_vpc_peering_connection.hubSpoke2.id
+  depends_on                = [aws_route_table.f5-xc-services-vpc-external-rt]
 }
 
 resource "aws_route" "spoke1-external-to-hub" {
