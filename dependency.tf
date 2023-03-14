@@ -62,3 +62,8 @@ output serviceExternalRouteTable {
 output serviceCidrBlock {
   value = var.servicesVpcCidrBlock
 }
+
+output "jumphostSpoke1_public_ip" {
+  value       = var.createJumphost == true ? aws_instance.jumphost[0].public_ip : null
+  description = "Public IP address of jumphost in spoke 1"
+}

@@ -182,3 +182,34 @@ resource "aws_security_group" "f5-xc-spoke-vpc" {
     Owner = var.resourceOwner
   }
 }
+
+############################ AMI ############################
+
+data "aws_ami" "ubuntu" {
+  most_recent = true
+  owners      = ["099720109477"] # Canonical
+  filter {
+    name   = "name"
+    values = [var.ami_search_name]
+  }
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+}
+
+############################ Compute ############################
+
+resource "aws_instance" "jumphost" {
+  count                  = var.createJumphost == true ? 1 : 0
+  ami                    = data.aws_ami.ubuntu.id
+  instance_type          = "t3.large"
+  subnet_id              = aws_subnet.f5-xc-spoke-external["az1"].id
+  vpc_security_group_ids = [aws_security_group.f5-xc-spoke-vpc.id]
+  key_name               = var.ssh_key
+
+  tags = {
+    Name  = format("%s-jumphost-spoke1", var.projectPrefix)
+    Owner = var.resourceOwner
+  }
+}
