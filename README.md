@@ -27,6 +27,7 @@ No modules.
 |------|------|
 | [aws_eip.f5-xc-spoke-nat](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/eip) | resource |
 | [aws_eip.f5-xc-spoke2-nat](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/eip) | resource |
+| [aws_instance.jumphost](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/instance) | resource |
 | [aws_internet_gateway.f5-xc-services-vpc-gw](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/internet_gateway) | resource |
 | [aws_internet_gateway.f5-xc-spoke-vpc-gw](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/internet_gateway) | resource |
 | [aws_internet_gateway.f5-xc-spoke2-vpc-gw](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/internet_gateway) | resource |
@@ -38,11 +39,17 @@ No modules.
 | [aws_network_acl_rule.tcp_53-2](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/network_acl_rule) | resource |
 | [aws_network_acl_rule.udp_53](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/network_acl_rule) | resource |
 | [aws_network_acl_rule.udp_53-2](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/network_acl_rule) | resource |
+| [aws_route.hub-to-spoke1](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/route) | resource |
+| [aws_route.hub-to-spoke2](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/route) | resource |
 | [aws_route.internet-rt](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/route) | resource |
 | [aws_route.spoke-internet-rt](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/route) | resource |
 | [aws_route.spoke-workload-rt](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/route) | resource |
+| [aws_route.spoke1-external-to-hub](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/route) | resource |
+| [aws_route.spoke1-workload-to-hub](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/route) | resource |
+| [aws_route.spoke2-external-to-hub](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/route) | resource |
 | [aws_route.spoke2-internet-rt](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/route) | resource |
 | [aws_route.spoke2-workload-rt](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/route) | resource |
+| [aws_route.spoke2-workload-to-hub](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/route) | resource |
 | [aws_route_table.f5-xc-services-vpc-external-rt](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/route_table) | resource |
 | [aws_route_table.f5-xc-spoke-vpc-external-rt](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/route_table) | resource |
 | [aws_route_table.f5-xc-spoke-vpc-workload-rt](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/route_table) | resource |
@@ -68,21 +75,28 @@ No modules.
 | [aws_vpc.f5-xc-services](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/vpc) | resource |
 | [aws_vpc.f5-xc-spoke](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/vpc) | resource |
 | [aws_vpc.f5-xc-spoke2](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/vpc) | resource |
+| [aws_vpc_peering_connection.hubSpoke1](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/vpc_peering_connection) | resource |
+| [aws_vpc_peering_connection.hubSpoke2](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/resources/vpc_peering_connection) | resource |
+| [aws_ami.ubuntu](https://registry.terraform.io/providers/hashicorp/aws/4.54.0/docs/data-sources/ami) | data source |
 | [http_http.myip](https://registry.terraform.io/providers/hashicorp/http/3.2.1/docs/data-sources/http) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_ami_search_name"></a> [ami\_search\_name](#input\_ami\_search\_name) | AWS AMI search filter to find correct image (Ubuntu) for region | `string` | `"ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-20230112"` | no |
 | <a name="input_auto_trust_localip"></a> [auto\_trust\_localip](#input\_auto\_trust\_localip) | if true, query ifconfig.io for public ip of terraform host. | `bool` | `false` | no |
 | <a name="input_awsRegion"></a> [awsRegion](#input\_awsRegion) | aws region | `string` | n/a | yes |
+| <a name="input_createJumphost"></a> [createJumphost](#input\_createJumphost) | Create a jumphost for troubleshooting purposes (true or false) | `bool` | n/a | yes |
 | <a name="input_projectPrefix"></a> [projectPrefix](#input\_projectPrefix) | projectPrefix name for tagging | `string` | n/a | yes |
+| <a name="input_resourceOwner"></a> [resourceOwner](#input\_resourceOwner) | Owner of the deployment for tagging purposes | `string` | n/a | yes |
 | <a name="input_servicesVpc"></a> [servicesVpc](#input\_servicesVpc) | Services VPC | `map(any)` | n/a | yes |
 | <a name="input_servicesVpcCidrBlock"></a> [servicesVpcCidrBlock](#input\_servicesVpcCidrBlock) | n/a | `string` | n/a | yes |
 | <a name="input_spoke2Vpc"></a> [spoke2Vpc](#input\_spoke2Vpc) | Spoke VPC | `map(any)` | n/a | yes |
 | <a name="input_spoke2VpcCidrBlock"></a> [spoke2VpcCidrBlock](#input\_spoke2VpcCidrBlock) | n/a | `string` | n/a | yes |
 | <a name="input_spokeVpc"></a> [spokeVpc](#input\_spokeVpc) | Spoke VPC | `map(any)` | n/a | yes |
 | <a name="input_spokeVpcCidrBlock"></a> [spokeVpcCidrBlock](#input\_spokeVpcCidrBlock) | n/a | `string` | n/a | yes |
+| <a name="input_ssh_key"></a> [ssh\_key](#input\_ssh\_key) | SSH public key used to create an EC2 keypair | `string` | n/a | yes |
 | <a name="input_trusted_ip"></a> [trusted\_ip](#input\_trusted\_ip) | IP to allow external access | `string` | n/a | yes |
 
 ## Outputs
@@ -95,6 +109,7 @@ No modules.
 | <a name="output_awsRegion"></a> [awsRegion](#output\_awsRegion) | n/a |
 | <a name="output_externalSubnets"></a> [externalSubnets](#output\_externalSubnets) | n/a |
 | <a name="output_internalSubnets"></a> [internalSubnets](#output\_internalSubnets) | n/a |
+| <a name="output_jumphostSpoke1_public_ip"></a> [jumphostSpoke1\_public\_ip](#output\_jumphostSpoke1\_public\_ip) | Public IP address of jumphost in spoke 1 |
 | <a name="output_projectPrefix"></a> [projectPrefix](#output\_projectPrefix) | n/a |
 | <a name="output_securityGroup"></a> [securityGroup](#output\_securityGroup) | n/a |
 | <a name="output_serviceCidrBlock"></a> [serviceCidrBlock](#output\_serviceCidrBlock) | n/a |
