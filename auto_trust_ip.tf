@@ -3,7 +3,7 @@ locals {
     # trusted CIDRs are a combination of CIDRs manually set through a tfvar
     # the CIDR of the VPC, and an automatically discovered CIDR if enabled
     # by auto_trust_localip
-    trusted_cidr = concat([var.trusted_ip],[var.servicesVpcCidrBlock],local.auto_trusted_cidr)
+    trusted_cidr = concat([var.trusted_ip],[var.services_vpc_cidr_block],local.auto_trusted_cidr)
 }
 
 variable "auto_trust_localip" {
