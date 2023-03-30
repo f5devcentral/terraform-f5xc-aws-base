@@ -43,7 +43,7 @@ resource "aws_subnet" "f5-xc-spoke-workload" {
   for_each                = var.spoke_vpc.workload
   cidr_block              = each.value.cidr
   map_public_ip_on_launch = "false"
-  availability_zone       = var.spokeVpc.azs[each.key]["az"]
+  availability_zone       = var.spoke_vpc.azs[each.key]["az"]
 
   tags = {
     Name  = "${var.project_prefix}-f5-xc-spoke-workload-${each.key}"
