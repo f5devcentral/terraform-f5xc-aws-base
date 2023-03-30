@@ -1,8 +1,8 @@
-variable "projectPrefix" {
+variable "project_prefix" {
   type        = string
   description = "projectPrefix name for tagging"
 }
-variable "resourceOwner" {
+variable "resource_owner" {
   type        = string
   description = "Owner of the deployment for tagging purposes"
 }
@@ -13,35 +13,35 @@ variable "trusted_ip" {
 }
 
 
-variable "awsRegion" {
+variable "aws_region" {
   description = "aws region"
   type        = string
 }
 
 
-variable "servicesVpcCidrBlock" {
+variable "services_vpc_cidr_block" {
   type = string
 }
-variable "servicesVpc" {
+variable "services_vpc" {
   description = "Services VPC"
   type        = map(any)
 }
-variable "spokeVpcCidrBlock" {
+variable "spoke_vpc_cidr_block" {
   type = string
 }
-variable "spokeVpc" {
+variable "spoke_vpc" {
   description = "Spoke VPC"
   type        = map(any)
 }
-variable "spoke2VpcCidrBlock" {
+variable "spoke2_vpc_cidr_block" {
   type = string
 }
-variable "spoke2Vpc" {
+variable "spoke2_vpc" {
   description = "Spoke VPC"
   type        = map(any)
 }
 
-variable "createJumphost" {
+variable "create_jumphost" {
   description = "Create a jumphost for troubleshooting purposes (true or false)"
   type        = bool
 }
