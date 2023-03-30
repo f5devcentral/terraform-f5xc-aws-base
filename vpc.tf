@@ -1,14 +1,14 @@
 
 resource "aws_vpc" "f5-xc-services" {
-  cidr_block           = var.servicesVpcCidrBlock
+  cidr_block           = var.services_vpc_cidr_block
   instance_tenancy     = "default"
   enable_dns_support   = "true"
   enable_dns_hostnames = "true"
   #enable_classiclink   = "false"
 
   tags = {
-    Name  = "${var.projectPrefix}-f5-xc-services-vpc"
-    Owner = var.resourceOwner
+    Name  = "${var.project_prefix}-f5-xc-services-vpc"
+    Owner = var.resource_owner
   }
 }
 
@@ -17,40 +17,40 @@ locals {
 }
 resource "aws_subnet" "f5-xc-services-external" {
   vpc_id                  = aws_vpc.f5-xc-services.id
-  for_each                = var.servicesVpc.external
+  for_each                = var.services_vpc.external
   cidr_block              = each.value.cidr
   map_public_ip_on_launch = "true"
-  availability_zone       = var.servicesVpc.azs[each.key]["az"]
+  availability_zone       = var.services_vpc.azs[each.key]["az"]
 
   tags = {
-    Name  = "${var.projectPrefix}-f5-xc-services-external-${each.key}"
-    Owner = var.resourceOwner
+    Name  = "${var.project_prefix}-f5-xc-services-external-${each.key}"
+    Owner = var.resource_owner
   }
 }
 
 resource "aws_subnet" "f5-xc-services-internal" {
   vpc_id                  = aws_vpc.f5-xc-services.id
-  for_each                = var.servicesVpc.internal
+  for_each                = var.services_vpc.internal
   cidr_block              = each.value.cidr
   map_public_ip_on_launch = "false"
-  availability_zone       = var.servicesVpc.azs[each.key]["az"]
+  availability_zone       = var.services_vpc.azs[each.key]["az"]
 
   tags = {
-    Name  = "${var.projectPrefix}-f5-xc-services-internal-${each.key}"
-    Owner = var.resourceOwner
+    Name  = "${var.project_prefix}-f5-xc-services-internal-${each.key}"
+    Owner = var.resource_owner
   }
 }
 
 resource "aws_subnet" "f5-xc-services-workload" {
   vpc_id                  = aws_vpc.f5-xc-services.id
-  for_each                = var.servicesVpc.workload
+  for_each                = var.services_vpc.workload
   cidr_block              = each.value.cidr
   map_public_ip_on_launch = "false"
-  availability_zone       = var.servicesVpc.azs[each.key]["az"]
+  availability_zone       = var.services_vpc.azs[each.key]["az"]
 
   tags = {
-    Name  = "${var.projectPrefix}-f5-xc-services-workload-${each.key}"
-    Owner = var.resourceOwner
+    Name  = "${var.project_prefix}-f5-xc-services-workload-${each.key}"
+    Owner = var.resource_owner
   }
 }
 
@@ -59,8 +59,8 @@ resource "aws_internet_gateway" "f5-xc-services-vpc-gw" {
   vpc_id = aws_vpc.f5-xc-services.id
 
   tags = {
-    Name  = "${var.projectPrefix}-f5-xc-services-vpc-igw"
-    Owner = var.resourceOwner
+    Name  = "${var.project_prefix}-f5-xc-services-vpc-igw"
+    Owner = var.resource_owner
   }
 }
 
@@ -68,8 +68,8 @@ resource "aws_route_table" "f5-xc-services-vpc-external-rt" {
   vpc_id = aws_vpc.f5-xc-services.id
 
   tags = {
-    Name  = "${var.projectPrefix}-f5-xc-services-external-rt"
-    Owner = var.resourceOwner
+    Name  = "${var.project_prefix}-f5-xc-services-external-rt"
+    Owner = var.resource_owner
   }
 }
 
@@ -87,7 +87,7 @@ resource "aws_route_table_association" "f5-xc-external-association" {
 }
 
 resource "aws_security_group" "f5-xc-vpc" {
-  name   = "${var.projectPrefix}-f5-xc-sg"
+  name   = "${var.project_prefix}-f5-xc-sg"
   vpc_id = aws_vpc.f5-xc-services.id
 
   ingress {
@@ -127,8 +127,8 @@ resource "aws_security_group" "f5-xc-vpc" {
   }
 
   tags = {
-    Name  = "${var.projectPrefix}-f5-xc-sg"
-    Owner = var.resourceOwner
+    Name  = "${var.project_prefix}-f5-xc-sg"
+    Owner = var.resource_owner
   }
 }
 
