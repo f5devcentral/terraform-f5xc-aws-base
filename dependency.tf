@@ -1,69 +1,69 @@
-output projectPrefix {
-  value = var.projectPrefix
+output project_prefix {
+  value = var.project_prefix
 }
-output awsRegion {
-  value = var.awsRegion
+output aws_region {
+  value = var.aws_region
 }
-output awsAz1 {
-  value = var.servicesVpc.azs["az1"]["az"]
+output aws_az1 {
+  value = var.services_vpc.azs["az1"]["az"]
 }
-output awsAz2 {
-  value = var.servicesVpc.azs["az2"]["az"]
+output aws_az2 {
+  value = var.services_vpc.azs["az2"]["az"]
 }
-output awsAz3 {
-  value = var.servicesVpc.azs["az3"]["az"]
+output aws_az3 {
+  value = var.services_vpc.azs["az3"]["az"]
 }
-output externalSubnets {
+output external_subnets {
   value = aws_subnet.f5-xc-services-external
 }
-output internalSubnets {
+output internal_subnets {
   value = aws_subnet.f5-xc-services-internal
 }
-output workloadSubnets {
+output workload_subnets {
   value = aws_subnet.f5-xc-services-workload
 }
-output spokeExternalSubnets { 
+output spoke_external_subnets { 
   value   = aws_subnet.f5-xc-spoke-external
 }
-output spokeWorkloadSubnets {
+output spoke_workload_subnets {
   value = aws_subnet.f5-xc-spoke-workload
 }
-output securityGroup {
+output security_group {
   value   = aws_security_group.f5-xc-vpc.id
 }
-output vpcId {
+output vpc_id {
   value = aws_vpc.f5-xc-services.id
 }
-output spokeVpcId{
+output spoke_vpc_id{
   value = aws_vpc.f5-xc-spoke.id
 }
-output spokeSecurityGroup {
+output spoke_security_group {
   value = aws_security_group.f5-xc-spoke-vpc.id
 }
 
-output spoke2ExternalSubnets { 
+output spoke2_external_subnets { 
   value   = aws_subnet.f5-xc-spoke2-external
 }
-output spoke2WorkloadSubnets {
+output spoke2_workload_subnets {
   value = aws_subnet.f5-xc-spoke2-workload
 }
 
-output spoke2VpcId{
+output spoke2_vpc_id{
   value = aws_vpc.f5-xc-spoke2.id
 }
-output spoke2SecurityGroup {
+output spoke2_security_group {
   value = aws_security_group.f5-xc-spoke2-vpc.id
 }
 
-output serviceExternalRouteTable {
+output service_external_route_table {
   value = aws_route_table.f5-xc-services-vpc-external-rt.id
 }
 
-output serviceCidrBlock {
-  value = var.servicesVpcCidrBlock
+output service_cidr_block {
+  value = var.services_vpc_cidr_block
 }
 
-output "jumphostSpoke1_public_ip" {
-  value       = var.createJumphost == true ? aws_instance.jumphost[0].public_ip : null
+output "jumphost_spoke1_public_ip" {
+  value       = var.create_jumphost == true ? aws_instance.jumphost[0].public_ip : null
   description = "Public IP address of jumphost in spoke 1"
 }

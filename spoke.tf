@@ -1,53 +1,53 @@
 
 resource "aws_vpc" "f5-xc-spoke" {
-  cidr_block           = var.spokeVpcCidrBlock
+  cidr_block           = var.spoke_vpc_cidr_block
   instance_tenancy     = "default"
   enable_dns_support   = "true"
   enable_dns_hostnames = "true"
   #enable_classiclink   = "false"
 
   tags = {
-    Name  = "${var.projectPrefix}-f5-xc-spoke-vpc"
-    Owner = var.resourceOwner
+    Name  = "${var.project_prefix}-f5-xc-spoke-vpc"
+    Owner = var.resource_owner
   }
 }
 
 resource "aws_subnet" "f5-xc-spoke-external" {
   vpc_id                  = aws_vpc.f5-xc-spoke.id
-  for_each                = var.spokeVpc.external
+  for_each                = var.spoke_vpc.external
   cidr_block              = each.value.cidr
   map_public_ip_on_launch = "true"
-  availability_zone       = var.spokeVpc.azs[each.key]["az"]
+  availability_zone       = var.spoke_vpc.azs[each.key]["az"]
 
   tags = {
-    Name  = "${var.projectPrefix}-f5-xc-spoke-external-${each.key}"
-    Owner = var.resourceOwner
+    Name  = "${var.project_prefix}-f5-xc-spoke-external-${each.key}"
+    Owner = var.resource_owner
   }
 }
 
 resource "aws_subnet" "f5-xc-spoke-internal" {
   vpc_id                  = aws_vpc.f5-xc-spoke.id
-  for_each                = var.spokeVpc.internal
+  for_each                = var.spoke_vpc.internal
   cidr_block              = each.value.cidr
   map_public_ip_on_launch = "false"
-  availability_zone       = var.spokeVpc.azs[each.key]["az"]
+  availability_zone       = var.spoke_vpc.azs[each.key]["az"]
 
   tags = {
-    Name  = "${var.projectPrefix}-f5-xc-spoke-internal-${each.key}"
-    Owner = var.resourceOwner
+    Name  = "${var.project_prefix}-f5-xc-spoke-internal-${each.key}"
+    Owner = var.resource_owner
   }
 }
 
 resource "aws_subnet" "f5-xc-spoke-workload" {
   vpc_id                  = aws_vpc.f5-xc-spoke.id
-  for_each                = var.spokeVpc.workload
+  for_each                = var.spoke_vpc.workload
   cidr_block              = each.value.cidr
   map_public_ip_on_launch = "false"
-  availability_zone       = var.spokeVpc.azs[each.key]["az"]
+  availability_zone       = var.spoke_vpc.azs[each.key]["az"]
 
   tags = {
-    Name  = "${var.projectPrefix}-f5-xc-spoke-workload-${each.key}"
-    Owner = var.resourceOwner
+    Name  = "${var.project_prefix}-f5-xc-spoke-workload-${each.key}"
+    Owner = var.resource_owner
   }
 }
 
@@ -55,8 +55,8 @@ resource "aws_internet_gateway" "f5-xc-spoke-vpc-gw" {
   vpc_id = aws_vpc.f5-xc-spoke.id
 
   tags = {
-    Name  = "${var.projectPrefix}-f5-xc-spoke-vpc-igw"
-    Owner = var.resourceOwner
+    Name  = "${var.project_prefix}-f5-xc-spoke-vpc-igw"
+    Owner = var.resource_owner
   }
 }
 
@@ -64,8 +64,8 @@ resource "aws_route_table" "f5-xc-spoke-vpc-external-rt" {
   vpc_id = aws_vpc.f5-xc-spoke.id
 
   tags = {
-    Name  = "${var.projectPrefix}-f5-xc-spoke-external-rt"
-    Owner = var.resourceOwner
+    Name  = "${var.project_prefix}-f5-xc-spoke-external-rt"
+    Owner = var.resource_owner
   }
 }
 
@@ -86,8 +86,8 @@ resource "aws_eip" "f5-xc-spoke-nat" {
   vpc = true
 
   tags = {
-    Name  = "${var.projectPrefix}-f5-xc-spoke-nat-eip"
-    Owner = var.resourceOwner
+    Name  = "${var.project_prefix}-f5-xc-spoke-nat-eip"
+    Owner = var.resource_owner
   }
 }
 
@@ -97,8 +97,8 @@ resource "aws_nat_gateway" "f5-xc-spoke-vpc-nat" {
   depends_on    = [aws_internet_gateway.f5-xc-spoke-vpc-gw]
 
   tags = {
-    Name  = "${var.projectPrefix}-f5-xc-spoke-nat"
-    Owner = var.resourceOwner
+    Name  = "${var.project_prefix}-f5-xc-spoke-nat"
+    Owner = var.resource_owner
   }
 }
 
@@ -106,8 +106,8 @@ resource "aws_route_table" "f5-xc-spoke-vpc-workload-rt" {
   vpc_id = aws_vpc.f5-xc-spoke.id
 
   tags = {
-    Name  = "${var.projectPrefix}-f5-xc-spoke-workload-rt"
-    Owner = var.resourceOwner
+    Name  = "${var.project_prefix}-f5-xc-spoke-workload-rt"
+    Owner = var.resource_owner
   }
 }
 
@@ -125,7 +125,7 @@ resource "aws_route_table_association" "f5-xc-spoke-workload-association" {
 }
 
 resource "aws_security_group" "f5-xc-spoke-vpc" {
-  name   = "${var.projectPrefix}-f5-xc-spoke-sg"
+  name   = "${var.project_prefix}-f5-xc-spoke-sg"
   vpc_id = aws_vpc.f5-xc-spoke.id
 
   ingress {
@@ -178,8 +178,8 @@ resource "aws_security_group" "f5-xc-spoke-vpc" {
   }
 
   tags = {
-    Name  = "${var.projectPrefix}-f5-xc-spoke-sg"
-    Owner = var.resourceOwner
+    Name  = "${var.project_prefix}-f5-xc-spoke-sg"
+    Owner = var.resource_owner
   }
 }
 
@@ -201,7 +201,7 @@ data "aws_ami" "ubuntu" {
 ############################ Compute ############################
 
 resource "aws_instance" "jumphost" {
-  count                  = var.createJumphost == true ? 1 : 0
+  count                  = var.create_jumphost == true ? 1 : 0
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = "t3.large"
   subnet_id              = aws_subnet.f5-xc-spoke-external["az1"].id
@@ -209,7 +209,7 @@ resource "aws_instance" "jumphost" {
   key_name               = var.ssh_key
 
   tags = {
-    Name  = format("%s-jumphost-spoke1", var.projectPrefix)
-    Owner = var.resourceOwner
+    Name  = format("%s-jumphost-spoke1", var.project_prefix)
+    Owner = var.resource_owner
   }
 }
