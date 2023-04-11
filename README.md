@@ -86,16 +86,16 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_ami_search_name"></a> [ami\_search\_name](#input\_ami\_search\_name) | AWS AMI search filter to find correct image (Ubuntu) for region | `string` | `"ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-20230112"` | no |
 | <a name="input_auto_trust_localip"></a> [auto\_trust\_localip](#input\_auto\_trust\_localip) | if true, query ifconfig.io for public ip of terraform host. | `bool` | `false` | no |
-| <a name="input_awsRegion"></a> [awsRegion](#input\_awsRegion) | aws region | `string` | n/a | yes |
-| <a name="input_createJumphost"></a> [createJumphost](#input\_createJumphost) | Create a jumphost for troubleshooting purposes (true or false) | `bool` | n/a | yes |
-| <a name="input_projectPrefix"></a> [projectPrefix](#input\_projectPrefix) | projectPrefix name for tagging | `string` | n/a | yes |
-| <a name="input_resourceOwner"></a> [resourceOwner](#input\_resourceOwner) | Owner of the deployment for tagging purposes | `string` | n/a | yes |
-| <a name="input_servicesVpc"></a> [servicesVpc](#input\_servicesVpc) | Services VPC | `map(any)` | n/a | yes |
-| <a name="input_servicesVpcCidrBlock"></a> [servicesVpcCidrBlock](#input\_servicesVpcCidrBlock) | n/a | `string` | n/a | yes |
-| <a name="input_spoke2Vpc"></a> [spoke2Vpc](#input\_spoke2Vpc) | Spoke VPC | `map(any)` | n/a | yes |
-| <a name="input_spoke2VpcCidrBlock"></a> [spoke2VpcCidrBlock](#input\_spoke2VpcCidrBlock) | n/a | `string` | n/a | yes |
-| <a name="input_spokeVpc"></a> [spokeVpc](#input\_spokeVpc) | Spoke VPC | `map(any)` | n/a | yes |
-| <a name="input_spokeVpcCidrBlock"></a> [spokeVpcCidrBlock](#input\_spokeVpcCidrBlock) | n/a | `string` | n/a | yes |
+| <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | aws region | `string` | n/a | yes |
+| <a name="input_create_jumphost"></a> [create\_jumphost](#input\_create\_jumphost) | Create a jumphost for troubleshooting purposes (true or false) | `bool` | n/a | yes |
+| <a name="input_project_prefix"></a> [project\_prefix](#input\_project\_prefix) | projectPrefix name for tagging | `string` | n/a | yes |
+| <a name="input_resource_owner"></a> [resource\_owner](#input\_resource\_owner) | Owner of the deployment for tagging purposes | `string` | n/a | yes |
+| <a name="input_services_vpc"></a> [services\_vpc](#input\_services\_vpc) | Services VPC | `map(any)` | n/a | yes |
+| <a name="input_services_vpc_cidr_block"></a> [services\_vpc\_cidr\_block](#input\_services\_vpc\_cidr\_block) | n/a | `string` | n/a | yes |
+| <a name="input_spoke2_vpc"></a> [spoke2\_vpc](#input\_spoke2\_vpc) | Spoke VPC | `map(any)` | n/a | yes |
+| <a name="input_spoke2_vpc_cidr_block"></a> [spoke2\_vpc\_cidr\_block](#input\_spoke2\_vpc\_cidr\_block) | n/a | `string` | n/a | yes |
+| <a name="input_spoke_vpc"></a> [spoke\_vpc](#input\_spoke\_vpc) | Spoke VPC | `map(any)` | n/a | yes |
+| <a name="input_spoke_vpc_cidr_block"></a> [spoke\_vpc\_cidr\_block](#input\_spoke\_vpc\_cidr\_block) | n/a | `string` | n/a | yes |
 | <a name="input_ssh_key"></a> [ssh\_key](#input\_ssh\_key) | SSH public key used to create an EC2 keypair | `string` | n/a | yes |
 | <a name="input_trusted_ip"></a> [trusted\_ip](#input\_trusted\_ip) | IP to allow external access | `string` | n/a | yes |
 
@@ -103,25 +103,25 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_awsAz1"></a> [awsAz1](#output\_awsAz1) | n/a |
-| <a name="output_awsAz2"></a> [awsAz2](#output\_awsAz2) | n/a |
-| <a name="output_awsAz3"></a> [awsAz3](#output\_awsAz3) | n/a |
-| <a name="output_awsRegion"></a> [awsRegion](#output\_awsRegion) | n/a |
-| <a name="output_externalSubnets"></a> [externalSubnets](#output\_externalSubnets) | n/a |
-| <a name="output_internalSubnets"></a> [internalSubnets](#output\_internalSubnets) | n/a |
-| <a name="output_jumphostSpoke1_public_ip"></a> [jumphostSpoke1\_public\_ip](#output\_jumphostSpoke1\_public\_ip) | Public IP address of jumphost in spoke 1 |
-| <a name="output_projectPrefix"></a> [projectPrefix](#output\_projectPrefix) | n/a |
-| <a name="output_securityGroup"></a> [securityGroup](#output\_securityGroup) | n/a |
-| <a name="output_serviceCidrBlock"></a> [serviceCidrBlock](#output\_serviceCidrBlock) | n/a |
-| <a name="output_serviceExternalRouteTable"></a> [serviceExternalRouteTable](#output\_serviceExternalRouteTable) | n/a |
-| <a name="output_spoke2ExternalSubnets"></a> [spoke2ExternalSubnets](#output\_spoke2ExternalSubnets) | n/a |
-| <a name="output_spoke2SecurityGroup"></a> [spoke2SecurityGroup](#output\_spoke2SecurityGroup) | n/a |
-| <a name="output_spoke2VpcId"></a> [spoke2VpcId](#output\_spoke2VpcId) | n/a |
-| <a name="output_spoke2WorkloadSubnets"></a> [spoke2WorkloadSubnets](#output\_spoke2WorkloadSubnets) | n/a |
-| <a name="output_spokeExternalSubnets"></a> [spokeExternalSubnets](#output\_spokeExternalSubnets) | n/a |
-| <a name="output_spokeSecurityGroup"></a> [spokeSecurityGroup](#output\_spokeSecurityGroup) | n/a |
-| <a name="output_spokeVpcId"></a> [spokeVpcId](#output\_spokeVpcId) | n/a |
-| <a name="output_spokeWorkloadSubnets"></a> [spokeWorkloadSubnets](#output\_spokeWorkloadSubnets) | n/a |
-| <a name="output_vpcId"></a> [vpcId](#output\_vpcId) | n/a |
-| <a name="output_workloadSubnets"></a> [workloadSubnets](#output\_workloadSubnets) | n/a |
+| <a name="output_aws_az1"></a> [aws\_az1](#output\_aws\_az1) | n/a |
+| <a name="output_aws_az2"></a> [aws\_az2](#output\_aws\_az2) | n/a |
+| <a name="output_aws_az3"></a> [aws\_az3](#output\_aws\_az3) | n/a |
+| <a name="output_aws_region"></a> [aws\_region](#output\_aws\_region) | n/a |
+| <a name="output_external_subnets"></a> [external\_subnets](#output\_external\_subnets) | n/a |
+| <a name="output_internal_subnets"></a> [internal\_subnets](#output\_internal\_subnets) | n/a |
+| <a name="output_jumphost_spoke1_public_ip"></a> [jumphost\_spoke1\_public\_ip](#output\_jumphost\_spoke1\_public\_ip) | Public IP address of jumphost in spoke 1 |
+| <a name="output_project_prefix"></a> [project\_prefix](#output\_project\_prefix) | n/a |
+| <a name="output_security_group"></a> [security\_group](#output\_security\_group) | n/a |
+| <a name="output_service_cidr_block"></a> [service\_cidr\_block](#output\_service\_cidr\_block) | n/a |
+| <a name="output_service_external_route_table"></a> [service\_external\_route\_table](#output\_service\_external\_route\_table) | n/a |
+| <a name="output_spoke2_external_subnets"></a> [spoke2\_external\_subnets](#output\_spoke2\_external\_subnets) | n/a |
+| <a name="output_spoke2_security_group"></a> [spoke2\_security\_group](#output\_spoke2\_security\_group) | n/a |
+| <a name="output_spoke2_vpc_id"></a> [spoke2\_vpc\_id](#output\_spoke2\_vpc\_id) | n/a |
+| <a name="output_spoke2_workload_subnets"></a> [spoke2\_workload\_subnets](#output\_spoke2\_workload\_subnets) | n/a |
+| <a name="output_spoke_external_subnets"></a> [spoke\_external\_subnets](#output\_spoke\_external\_subnets) | n/a |
+| <a name="output_spoke_security_group"></a> [spoke\_security\_group](#output\_spoke\_security\_group) | n/a |
+| <a name="output_spoke_vpc_id"></a> [spoke\_vpc\_id](#output\_spoke\_vpc\_id) | n/a |
+| <a name="output_spoke_workload_subnets"></a> [spoke\_workload\_subnets](#output\_spoke\_workload\_subnets) | n/a |
+| <a name="output_vpc_id"></a> [vpc\_id](#output\_vpc\_id) | n/a |
+| <a name="output_workload_subnets"></a> [workload\_subnets](#output\_workload\_subnets) | n/a |
 <!-- END_TF_DOCS -->
